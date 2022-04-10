@@ -14,7 +14,8 @@ AccountStatus account_deposit(account_t self,double amount);
 double account_getBalance(account_t self);
 double account_getCreditLimit(account_t self);
 int account_getAccountNo(account_t self);
-void account_showAccount(account_t self);
+AccountStatus account_destroy(account_t* self);
+
 
 
 

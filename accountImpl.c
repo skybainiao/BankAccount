@@ -5,6 +5,7 @@
 #include <stdio.h>
 
 
+
 typedef struct account {
 	int accountNo;
 	double creditLimit;
@@ -13,7 +14,7 @@ typedef struct account {
 
 
 account_t account_create(int accountNo,double creditLimit) {
-	account_t _newAccount = calloc(sizeof(account), 1);
+	account_t _newAccount = calloc(sizeof(account),1);
 
 	if (_newAccount == NULL) {
 		return NULL;
@@ -21,13 +22,16 @@ account_t account_create(int accountNo,double creditLimit) {
 
 	_newAccount->accountNo = accountNo;
 	_newAccount->creditLimit = creditLimit;
+	_newAccount->balance = 0;
 
 	return _newAccount;
 }
 
+
+
 AccountStatus account_withdraw(account_t self, double amount)
 {
-	if (amount < self->balance && amount < self->creditLimit) {
+	if (amount <= self->balance && amount <= self->creditLimit) {
 		self->balance = self->balance - amount;
 		return OK;
 	}
@@ -50,6 +54,8 @@ AccountStatus account_deposit(account_t self, double amount)
 	}
 }
 
+
+
 double account_getBalance(account_t self)
 {
 	return self->balance;
@@ -66,10 +72,12 @@ int account_getAccountNo(account_t self)
 }
 
 
-void account_destory(account_t self) {
-	if (self != NULL) {
-		free(self);
-	}
+
+AccountStatus account_destroy(account_t* self)
+{
+	free(*self);
+	*self = NULL;
+	return OK;
 }
 
 
